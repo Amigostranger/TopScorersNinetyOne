@@ -12,10 +12,10 @@ def parse_csv(data):
     lines = data.strip().split('\n')
     records = []
 
-    for i in range(1,len(lines)):
+    for i in range(1, len(lines)):
         parts = lines[i].split(',')
 
-        name = parts[0].strip()
+        name = parts[0].strip() + " " + parts[1].strip()
         score = float(parts[2].strip())
 
         records.append((name, score))
@@ -66,14 +66,7 @@ def get_top_scorers(records):
         if records[i][1] == max_score:
             top_people.append(records[i][0])
 
-    # bubble sort
-    n = len(top_people)
-    for i in range(n):
-        for j in range(0, n - i - 1):
-            if top_people[j] > top_people[j + 1]:
-                temp = top_people[j]
-                top_people[j] = top_people[j + 1]
-                top_people[j + 1] = temp
+    top_people.sort(key=str.lower)
 
     return top_people, max_score
 
