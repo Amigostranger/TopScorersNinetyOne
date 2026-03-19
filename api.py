@@ -8,21 +8,6 @@ def get_db():
     return sqlite3.connect('scores.db')
 
 
-@app.route('/add', methods=['POST'])
-def add_score():
-    data = request.json
-    name = data['name']
-    score = data['score']
-
-    conn = get_db()
-    cursor = conn.cursor()
-
-    cursor.execute("INSERT INTO scores (name, score) VALUES (?, ?)", (name, score))
-    conn.commit()
-    conn.close()
-
-    return jsonify({"message": "Score added"})
-
 
 @app.route('/score/<name>', methods=['GET'])
 def get_score(name):
